@@ -1,20 +1,18 @@
-import { memo } from "react"
+import { memo, useState } from "react"
 
-function Display({b,c,verifyPost}){
-
+function Display({v}){
+    let [boolean,setbol]=useState(v.boolean)
+    function verifyPost(){
+        setbol(boolean=>!boolean)
+    }
+    console.log("hello")
     return(
         <>
-        {
-          b.map((v,i)=>{
-          return(
-            <div key={i} style={{border:"1px solid black",backgroundColor:`#${Math.random().toString(16).substr(-6)}`}}>
-              <h3>{v.title}</h3>
-              <h3>{v.post}</h3>
-              {(c)?<button onClick={()=>verifyPost(false)}>verified</button>:<button onClick={()=>verifyPost(true)}>verify</button>}
-            </div>
-          )
-        })
-      }
+        <div style={{border:"1px solid black",backgroundColor:`#${Math.random().toString(16).substr(-6)}`,marginTop:"20px"}}>
+            <h3>{v.title}</h3>
+            <h3>{v.post}</h3>
+            {(boolean)?<button onClick={()=>verifyPost(v.id)}>verified</button>:<button onClick={()=>verifyPost(v.id)}>verify</button>}
+        </div>
         </>
     )
 }

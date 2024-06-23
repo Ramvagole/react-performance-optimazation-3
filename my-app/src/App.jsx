@@ -5,21 +5,21 @@ import './App.css'
 import { List } from './component/List'
 import Display from './component/Display'
 
+
 function App() {
   const [count, setCount] = useState(0)
   let [b,setGro]=useState([])
-  let [a,setVal]=useState({title:"",post:""})
-  let [c,setBool]=useState(false)
+  let [a,setVal]=useState({title:"",post:"",boolean:false})
+  
   function timer(){
       setCount(count=>count+1)
   }
   function addPost(){
-    setGro([...b,a])
-    setVal({title:"",post:""})
+    setCount(count=>count+1)
+    setGro([...b,{...a,id:count}])
+    setVal({title:"",post:"",boolean:false})
   }
-  let verifyPost=useCallback((i)=>{
-    setBool(i)
-  },[c])
+  
   useEffect(()=>{
     setInterval(() => {
       timer()
@@ -30,7 +30,11 @@ function App() {
     <>
       <List setVal={setVal} addPost={addPost} a={a} count={count}/>
       <hr/>
-      <Display b={b} c={c} verifyPost={verifyPost}/>
+      {
+        b.map((v,i)=>{
+          return(<Display key={i} v={v}/>)
+        })
+      }
     </>
   )
 }
